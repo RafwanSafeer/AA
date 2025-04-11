@@ -20,8 +20,8 @@
             display: none; /* Hide all sections by default */
         }
         
-        /* Show only the gallery section initially */
-        #gallery-section {
+        /* Show only the welcome section initially */
+        #welcome-section {
             display: block;
         }
         
@@ -44,6 +44,136 @@
         .nav-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 7px 20px rgba(255, 77, 137, 0.4);
+        }
+        
+        /* Welcome page specific styles */
+        .welcome-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(128, 0, 128, 0.6)), url('./images/4de4fd07-ad88-4352-8ab5-3afced4873f8.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .welcome-content {
+            z-index: 10;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .welcome-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: #ff9fc2;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        
+        .welcome-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2.5s ease-in-out;
+        }
+        
+        .welcome-particle {
+            position: absolute;
+            z-index: 1;
+            animation: float-particle 15s linear infinite;
+        }
+        
+        .welcome-shape {
+            position: absolute;
+            z-index: 1;
+            width: 12px;
+            height: 12px;
+            background-color: #ffacc7;
+            animation: float-shape 15s linear infinite;
+        }
+        
+        .welcome-shape.circle {
+            border-radius: 50%;
+        }
+        
+        .welcome-shape.square {
+            border-radius: 0;
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes float-shape {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-button {
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            margin-top: 20px;
+            background: linear-gradient(to right, #ff6b8b, #ff9fb0);
+            animation: pulse 2s infinite, fadeIn 3s ease-in-out;
+        }
+        
+        .floating-heart-bg {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.4;
+            animation: float 10s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
         
         /* Love page specific styles */
@@ -130,6 +260,71 @@
                 opacity: 0;
             }
         }
+
+        /* Memory card hover effects */
+        .memory-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .memory-card:hover {
+            transform: scale(1.08);
+            z-index: 5;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+        }
+        
+        .memory-card img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .memory-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .intro-card {
+            background: linear-gradient(to right, #ffdef0, #ffe9f5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+            font-family: 'Quicksand', sans-serif;
+            color: #ff6699;
+            text-align: center;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Letter title styles */
+        .letter-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: #ff4d89;
+            text-align: center;
+            padding: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .letter-title span {
+            display: inline-block;
+            animation: float-letter 3s ease-in-out infinite;
+            animation-delay: calc(0.1s * var(--i));
+            color: transparent;
+            background: linear-gradient(45deg, #ff6b8b, #ff9fb0, #f876de);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        @keyframes float-letter {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
@@ -162,6 +357,62 @@
     <div class="star star-left">⭐</div>
     <div class="star star-right">✨</div>
     
+    <!-- SECTION 0: WELCOME PAGE -->
+    <section id="welcome-section">
+        <div class="welcome-container">
+            <!-- Confetti particles -->
+            <span class="welcome-particle" style="left: 10%; font-size: 20px; animation-duration: 15s; animation-delay: 0s;">💕</span>
+            <span class="welcome-particle" style="left: 20%; font-size: 15px; animation-duration: 12s; animation-delay: 1s;">💖</span>
+            <span class="welcome-particle" style="left: 30%; font-size: 18px; animation-duration: 17s; animation-delay: 2s;">✨</span>
+            <span class="welcome-particle" style="left: 40%; font-size: 22px; animation-duration: 14s; animation-delay: 3s;">💘</span>
+            <span class="welcome-particle" style="left: 50%; font-size: 16px; animation-duration: 13s; animation-delay: 4s;">❤️</span>
+            <span class="welcome-particle" style="left: 60%; font-size: 19px; animation-duration: 16s; animation-delay: 5s;">💓</span>
+            <span class="welcome-particle" style="left: 70%; font-size: 21px; animation-duration: 18s; animation-delay: 6s;">⭐</span>
+            <span class="welcome-particle" style="left: 80%; font-size: 17px; animation-duration: 19s; animation-delay: 7s;">💝</span>
+            <span class="welcome-particle" style="left: 90%; font-size: 14px; animation-duration: 20s; animation-delay: 8s;">💞</span>
+            <span class="welcome-particle" style="left: 15%; font-size: 23px; animation-duration: 21s; animation-delay: 9s;">💗</span>
+            <span class="welcome-particle" style="left: 25%; font-size: 18px; animation-duration: 22s; animation-delay: 10s;">💕</span>
+            <span class="welcome-particle" style="left: 35%; font-size: 16px; animation-duration: 15s; animation-delay: 11s;">✨</span>
+            <span class="welcome-particle" style="left: 45%; font-size: 19px; animation-duration: 16s; animation-delay: 12s;">💓</span>
+            <span class="welcome-particle" style="left: 55%; font-size: 17px; animation-duration: 14s; animation-delay: 13s;">❤️</span>
+            <span class="welcome-particle" style="left: 65%; font-size: 22px; animation-duration: 19s; animation-delay: 14s;">💘</span>
+            <span class="welcome-particle" style="left: 75%; font-size: 15px; animation-duration: 17s; animation-delay: 15s;">💖</span>
+            <span class="welcome-particle" style="left: 85%; font-size: 20px; animation-duration: 18s; animation-delay: 16s;">⭐</span>
+            <span class="welcome-particle" style="left: 95%; font-size: 16px; animation-duration: 20s; animation-delay: 17s;">💝</span>
+            <span class="welcome-particle" style="left: 5%; font-size: 18px; animation-duration: 16s; animation-delay: 18s;">💞</span>
+            <span class="welcome-particle" style="left: 18%; font-size: 17px; animation-duration: 15s; animation-delay: 19s;">💗</span>
+            
+            <!-- Additional shapes -->
+            <div class="welcome-shape square" style="left: 8%; width: 10px; height: 10px; background-color: #ffeb3b; animation-duration: 14s;"></div>
+            <div class="welcome-shape circle" style="left: 22%; width: 8px; height: 8px; background-color: #ff9fc2; animation-duration: 16s;"></div>
+            <div class="welcome-shape square" style="left: 36%; width: 6px; height: 6px; background-color: #ffd700; animation-duration: 18s;"></div>
+            <div class="welcome-shape circle" style="left: 48%; width: 12px; height: 12px; background-color: #ffffff; animation-duration: 20s;"></div>
+            <div class="welcome-shape square" style="left: 58%; width: 7px; height: 7px; background-color: #ff6c9e; animation-duration: 15s;"></div>
+            <div class="welcome-shape circle" style="left: 72%; width: 9px; height: 9px; background-color: #ffeb3b; animation-duration: 17s;"></div>
+            <div class="welcome-shape square" style="left: 88%; width: 11px; height: 11px; background-color: #ffffff; animation-duration: 19s;"></div>
+            <div class="welcome-shape circle" style="left: 14%; width: 10px; height: 10px; background-color: #ff6c9e; animation-duration: 21s;"></div>
+            <div class="welcome-shape square" style="left: 28%; width: 8px; height: 8px; background-color: #ffeb3b; animation-duration: 13s;"></div>
+            <div class="welcome-shape circle" style="left: 42%; width: 6px; height: 6px; background-color: #ffffff; animation-duration: 15s;"></div>
+            <div class="welcome-shape square" style="left: 56%; width: 12px; height: 12px; background-color: #ff9fc2; animation-duration: 17s;"></div>
+            <div class="welcome-shape circle" style="left: 68%; width: 7px; height: 7px; background-color: #ffd700; animation-duration: 19s;"></div>
+            <div class="welcome-shape square" style="left: 84%; width: 9px; height: 9px; background-color: #ff6c9e; animation-duration: 21s;"></div>
+            <div class="welcome-shape circle" style="left: 92%; width: 11px; height: 11px; background-color: #ffeb3b; animation-duration: 13s;"></div>
+            <div class="welcome-shape square" style="left: 4%; width: 8px; height: 8px; background-color: #ffffff; animation-duration: 15s;"></div>
+            <div class="welcome-shape circle" style="left: 17%; width: 10px; height: 10px; background-color: #ff9fc2; animation-duration: 17s;"></div>
+            <div class="welcome-shape square" style="left: 33%; width: 6px; height: 6px; background-color: #ffd700; animation-duration: 19s;"></div>
+            <div class="welcome-shape circle" style="left: 47%; width: 8px; height: 8px; background-color: #ff6c9e; animation-duration: 21s;"></div>
+            <div class="welcome-shape square" style="left: 63%; width: 12px; height: 12px; background-color: #ffeb3b; animation-duration: 13s;"></div>
+            <div class="welcome-shape circle" style="left: 77%; width: 7px; height: 7px; background-color: #ffffff; animation-duration: 15s;"></div>
+            <div class="welcome-shape square" style="left: 93%; width: 9px; height: 9px; background-color: #ff9fc2; animation-duration: 17s;"></div>
+            
+            <div class="welcome-content">
+                <h1 class="welcome-title">Welcome to Our Journey of Love</h1>
+                <p class="welcome-text">Explore the beautiful moments we've shared together, from the first hello to forever after</p>
+                <button class="nav-button welcome-button" onclick="showSection('gallery-section')">Begin Our Story</button>
+            </div>
+        </div>
+    </section>
+    
     <!-- SECTION 1: GALLERY PAGE -->
     <section id="gallery-section">
         <div class="memory-lane-container">
@@ -185,7 +436,9 @@
                 </h1>
                 
                 <div class="intro-card">
-                    <p>✨ Our magical journey together captured in 60 precious memories! Each photo tells a story of love, laughter, and the beautiful moments we've shared. Hover over each one to relive these special times with me! 💕 💑</p>
+                    <p>✨ Our magical journey together! Each photo tells a story of love, laughter, and the beautiful moments we've shared. ✨</p>
+                    <p>These snapshots capture the little pieces of magic we've created - every smile, every touch, every heartfelt moment that brought us closer. From spontaneous adventures to quiet moments of connection, this gallery holds the treasure of our first year together.</p>
+                    <p>Hover over each memory to relive the joy and warmth of these precious times. Each one reminds me how blessed I am to have you in my life! 💕 💑</p>
                 </div>
             </div>
             
@@ -502,7 +755,7 @@
             }
         }
         
-        // Auto-play music
+        // Auto-play music as soon as possible
         function playMusic() {
             bgMusic.play().catch(err => {
                 console.log('Music play error:', err);
@@ -513,8 +766,9 @@
             });
         }
         
-        // Try to play music immediately
+        // Try to play music immediately and on any interaction with the welcome page
         window.addEventListener('DOMContentLoaded', playMusic);
+        document.getElementById('welcome-section').addEventListener('click', playMusic);
         
         // Create floating hearts for love section
         function createHeart() {
@@ -657,4 +911,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
