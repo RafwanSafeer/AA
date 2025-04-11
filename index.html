@@ -15,7 +15,8 @@
         
         section {
             min-height: 100vh;
-            padding: 40px 0;
+            padding: 0; /* Remove padding */
+            margin: 0;
             position: relative;
             display: none; /* Hide all sections by default */
         }
@@ -23,6 +24,8 @@
         /* Show only the welcome section initially */
         #welcome-section {
             display: block;
+            height: 100vh;
+            overflow: hidden;
         }
         
         .nav-button {
@@ -49,6 +52,8 @@
         /* Welcome page specific styles */
         .welcome-container {
             min-height: 100vh;
+            height: 100vh;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -59,10 +64,20 @@
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(128, 0, 128, 0.6)), url('./images/4de4fd07-ad88-4352-8ab5-3afced4873f8.jpeg');
             background-size: cover;
             background-position: center;
-            position: relative;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        /* Add pink border on sides for mobile */
+        @media (max-width: 768px) {
+            .welcome-container {
+                border-left: 15px solid #ff9fc2;
+                border-right: 15px solid #ff9fc2;
+                width: calc(100% - 30px);
+            }
         }
         
         .welcome-content {
@@ -311,6 +326,21 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         
+        @media (max-width: 768px) {
+            .letter-title {
+                font-size: 42px; /* Specific size for mobile */
+                margin-bottom: 20px;
+                letter-spacing: 2px;
+                line-height: 1.5;
+                padding: 0 10px;
+            }
+            
+            .welcome-title {
+                font-size: 3.2rem; /* Slightly smaller on mobile */
+                padding: 0 15px;
+            }
+        }
+        
         .letter-title span {
             display: inline-block;
             animation: float-letter 3s ease-in-out infinite;
@@ -324,6 +354,60 @@
         @keyframes float-letter {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+        }
+
+        /* Letter section styles */
+        #letter-section {
+            position: relative;
+        }
+        
+        #letter-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff9fc2, #ffb6c1);
+            z-index: -1;
+        }
+        
+        .memory-lane-container {
+            position: relative;
+            z-index: 1;
+            padding: 50px 20px;
+        }
+        
+        /* Letter container styles */
+        .letter-container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .letter-container {
+                padding: 20px;
+                margin: 0 20px;
+                border-radius: 20px;
+            }
+            
+            #letter-section::before {
+                background: linear-gradient(to bottom, #ff9fc2, #ffb6c1);
+            }
+        }
+
+        /* Background image fix for mobile */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -654,22 +738,7 @@
                 <div class="heart-decoration heart-2">❤️</div>
                 
                 <h1 class="letter-title">
-                    <span style="--i:1">O</span>
-                    <span style="--i:2">n</span>
-                    <span style="--i:3">e</span>
-                    <span style="--i:4"> </span>
-                    <span style="--i:5">Y</span>
-                    <span style="--i:6">e</span>
-                    <span style="--i:7">a</span>
-                    <span style="--i:8">r</span>
-                    <span style="--i:9"> </span>
-                    <span style="--i:10">o</span>
-                    <span style="--i:11">f</span>
-                    <span style="--i:12"> </span>
-                    <span style="--i:13">L</span>
-                    <span style="--i:14">o</span>
-                    <span style="--i:15">v</span>
-                    <span style="--i:16">e</span>
+                    One Year of Love
                 </h1>
                 
                 <div class="letter-content">
@@ -755,20 +824,63 @@
             }
         }
         
-        // Auto-play music as soon as possible
+        // Aggressive autoplay function with multiple fallbacks
         function playMusic() {
-            bgMusic.play().catch(err => {
-                console.log('Music play error:', err);
-                // Try again with user interaction
-                document.addEventListener('click', function() {
-                    bgMusic.play();
-                }, { once: true });
-            });
+            // Try to play directly
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(err => {
+                    console.log('Music autoplay prevented:', err);
+                    // Set up event listeners for user interaction to trigger music
+                    setupInteractionEvents();
+                });
+            } else {
+                // Older browsers might not return a promise
+                setupInteractionEvents();
+            }
         }
         
-        // Try to play music immediately and on any interaction with the welcome page
+        // Set up event listeners on various user interactions
+        function setupInteractionEvents() {
+            const playHandler = function() {
+                bgMusic.play().then(() => {
+                    console.log('Music started after user interaction');
+                    // Remove all event listeners once successful
+                    document.removeEventListener('click', playHandler);
+                    document.removeEventListener('touchstart', playHandler);
+                    document.removeEventListener('keydown', playHandler);
+                    document.removeEventListener('scroll', playHandler);
+                }).catch(err => {
+                    console.log('Music play still failed:', err);
+                });
+            };
+            
+            // Add listeners for various interaction types
+            document.addEventListener('click', playHandler);
+            document.addEventListener('touchstart', playHandler);
+            document.addEventListener('keydown', playHandler);
+            document.addEventListener('scroll', playHandler);
+            
+            // Also add specific listener to the welcome button
+            document.querySelector('.welcome-button').addEventListener('click', playHandler);
+        }
+        
+        // Try to play music at different times
+        window.addEventListener('load', playMusic);
         window.addEventListener('DOMContentLoaded', playMusic);
-        document.getElementById('welcome-section').addEventListener('click', playMusic);
+        
+        // Try again after a short delay
+        setTimeout(playMusic, 500);
+        setTimeout(playMusic, 1000);
+        setTimeout(playMusic, 2000);
+        
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && !bgMusic.paused) {
+                bgMusic.play();
+            }
+        });
         
         // Create floating hearts for love section
         function createHeart() {
