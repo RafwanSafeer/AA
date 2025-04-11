@@ -74,9 +74,18 @@
         /* Add pink border on sides for mobile */
         @media (max-width: 768px) {
             .welcome-container {
-                border-left: 15px solid #ff9fc2;
-                border-right: 15px solid #ff9fc2;
-                width: calc(100% - 30px);
+                /* Remove the pink borders */
+                border-left: none;
+                border-right: none;
+                width: 100%; /* Cover the full width */
+                max-width: 100%;
+                overflow: hidden;
+            }
+            
+            /* Ensure no horizontal overflow */
+            body, html, #welcome-section {
+                max-width: 100%;
+                overflow-x: hidden;
             }
         }
         
