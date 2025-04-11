@@ -833,8 +833,42 @@
             }
         }
         
+        // Initialize music immediately on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force preload the audio file
+            bgMusic.load();
+            
+            // Try to start playing immediately
+            playMusic();
+            
+            // For iOS and other mobile devices, create a silent audio context to "warm up" the audio system
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioCtx = new AudioContext();
+                
+                // Create silent oscillator to initialize audio on iOS
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                gainNode.gain.value = 0; // Silent
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start(0);
+                oscillator.stop(0.001); // Extremely short
+                
+                // Resume audio context if suspended (important for iOS/Safari)
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            } catch (e) {
+                console.log('AudioContext not supported');
+            }
+        });
+        
         // Aggressive autoplay function with multiple fallbacks
         function playMusic() {
+            // If music is already playing, do nothing
+            if (!bgMusic.paused) return;
+            
             // Try to play directly
             const playPromise = bgMusic.play();
             
@@ -852,22 +886,33 @@
         
         // Set up event listeners on various user interactions
         function setupInteractionEvents() {
-            const playHandler = function() {
+            const playHandler = function(e) {
+                // Prevent default for touchstart to avoid delayed click events
+                if (e.type === 'touchstart') {
+                    e.preventDefault();
+                }
+                
+                bgMusic.currentTime = 0; // Always start from the beginning
                 bgMusic.play().then(() => {
                     console.log('Music started after user interaction');
                     // Remove all event listeners once successful
-                    document.removeEventListener('click', playHandler);
-                    document.removeEventListener('touchstart', playHandler);
-                    document.removeEventListener('keydown', playHandler);
-                    document.removeEventListener('scroll', playHandler);
+                    removeAllEventListeners();
                 }).catch(err => {
                     console.log('Music play still failed:', err);
                 });
             };
             
+            function removeAllEventListeners() {
+                document.removeEventListener('click', playHandler);
+                document.removeEventListener('touchstart', playHandler, { passive: false });
+                document.removeEventListener('keydown', playHandler);
+                document.removeEventListener('scroll', playHandler);
+                document.querySelector('.welcome-button').removeEventListener('click', playHandler);
+            }
+            
             // Add listeners for various interaction types
             document.addEventListener('click', playHandler);
-            document.addEventListener('touchstart', playHandler);
+            document.addEventListener('touchstart', playHandler, { passive: false });
             document.addEventListener('keydown', playHandler);
             document.addEventListener('scroll', playHandler);
             
@@ -877,17 +922,14 @@
         
         // Try to play music at different times
         window.addEventListener('load', playMusic);
-        window.addEventListener('DOMContentLoaded', playMusic);
-        
-        // Try again after a short delay
+        setTimeout(playMusic, 100);
         setTimeout(playMusic, 500);
         setTimeout(playMusic, 1000);
-        setTimeout(playMusic, 2000);
         
         // Handle page visibility changes
         document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && !bgMusic.paused) {
-                bgMusic.play();
+            if (!document.hidden) {
+                playMusic();
             }
         });
         
