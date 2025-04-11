@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our First Anniversary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 40px 0;
+            position: relative;
+            display: none; /* Hide all sections by default */
+        }
+        
+        /* Show only the gallery section initially */
+        #gallery-section {
+            display: block;
+        }
+        
+        .nav-button {
+            cursor: pointer;
+            background: linear-gradient(to right, #ff4d89, #ff6a95);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            font-family: 'Quicksand', sans-serif;
+            margin: 30px 0;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 77, 137, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 20px rgba(255, 77, 137, 0.4);
+        }
+        
+        /* Love page specific styles */
+        .love-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-message {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .love-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: #ff1a75;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .love-subtext {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.8rem;
+            color: #ff4d89;
+            margin-top: 20px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatHeart 6s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scrapbook-bg"></div>
+    
+    <div class="confetti" id="confetti-container"></div>
+    
+    <!-- Floating Circles Background -->
+    <div class="floating-circle" style="top: 15%; left: 10%; width: 120px; height: 120px; animation-delay: 0s;"></div>
+    <div class="floating-circle" style="top: 60%; left: 5%; width: 180px; height: 180px; animation-delay: 5s;"></div>
+    <div class="floating-circle" style="top: 25%; left: 80%; width: 150px; height: 150px; animation-delay: 3s;"></div>
+    <div class="floating-circle" style="top: 70%; left: 75%; width: 140px; height: 140px; animation-delay: 6s;"></div>
+    
+    <!-- Stickers -->
+    <div class="sticker sticker1">💖</div>
+    <div class="sticker sticker2">✨</div>
+    <div class="sticker sticker3">😊</div>
+    <div class="sticker sticker4">💕</div>
+    
+    <!-- Emoji Decorations -->
+    <div class="emoji-decoration" style="top: 5%; left: 5%;">💘</div>
+    <div class="emoji-decoration" style="top: 10%; right: 8%;">✨</div>
+    <div class="emoji-decoration" style="bottom: 15%; left: 7%;">🥰</div>
+    <div class="emoji-decoration" style="bottom: 10%; right: 10%;">💞</div>
+    <div class="emoji-decoration" style="top: 40%; left: 2%;">💝</div>
+    <div class="emoji-decoration" style="top: 30%; right: 3%;">💓</div>
+    <div class="emoji-decoration" style="bottom: 30%; left: 3%;">💌</div>
+    <div class="emoji-decoration" style="bottom: 40%; right: 5%;">💑</div>
+    
+    <div class="star star-left">⭐</div>
+    <div class="star star-right">✨</div>
+    
+    <!-- SECTION 1: GALLERY PAGE -->
+    <section id="gallery-section">
+        <div class="memory-lane-container">
+            <div class="header">
+                <h1 class="title">
+                    <span style="--i:1">O</span>
+                    <span style="--i:2">u</span>
+                    <span style="--i:3">r</span>
+                    <span style="--i:4"> </span>
+                    <span style="--i:5">M</span>
+                    <span style="--i:6">e</span>
+                    <span style="--i:7">m</span>
+                    <span style="--i:8">o</span>
+                    <span style="--i:9">r</span>
+                    <span style="--i:10">y</span>
+                    <span style="--i:11"> </span>
+                    <span style="--i:12">L</span>
+                    <span style="--i:13">a</span>
+                    <span style="--i:14">n</span>
+                    <span style="--i:15">e</span>
+                </h1>
+                
+                <div class="intro-card">
+                    <p>✨ Our magical journey together captured in 60 precious memories! Each photo tells a story of love, laughter, and the beautiful moments we've shared. Hover over each one to relive these special times with me! 💕 💑</p>
+                </div>
+            </div>
+            
+            <div class="gallery-container">
+                <div class="memory-grid">
+                    <!-- First row -->
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-02-21 at 10.33.30 AM.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-02-21 at 9.15.50 AM.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/4768ade6-6544-4316-b0fa-a234c3205de5.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-1921185527.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-506915522.jpg" alt="Memory">
+                    </div>
+                    <!-- Continue with all remaining images -->
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-188989064.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20240926-WA0011.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-1257414844.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-881746952.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-778143843.jpg" alt="Memory">
+                    </div>
+                    <!-- Add all remaining images -->
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-739508213.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241203-WA0028.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241128-WA0003.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-1805343957.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20250305-WA0021.jpg" alt="Memory">
+                    </div>
+                    <!-- Continue with more images -->
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241124-WA0000.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/72c92a4f-f4dd-48dc-a220-4a81eb4cbdfb.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-01-26 at 8.02.22 PM (1).jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-01-19 at 6.07.34 PM.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-01-08 at 5.51.34 PM.jpeg" alt="Memory">
+                    </div>
+                    <!-- Add more images -->
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2024-10-15 at 18.56.46_3e203ac7.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2024-09-07 at 18.15.09_d38a7b8a.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2024-09-07 at 18.01.30_6e81f801.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2024-05-21 at 18.54.14_95957097.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-922456160.jpg" alt="Memory">
+                    </div>
+                    <!-- Continue with remaining images -->
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-775257761.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-636692952.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-621386443.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-221016916.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/received_2180293388971315.jpeg" alt="Memory">
+                    </div>
+                    <!-- Add more images -->
+                    <div class="memory-card">
+                        <img src="./images/received_1114623196541010.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/received_405694698724865.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241222-WA0024.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241214-WA0024.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241212-WA0001.jpg" alt="Memory">
+                    </div>
+                    <!-- Continue with remaining images -->
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241126-WA0007.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241120-WA0001.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241104-WA0003.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241104-WA0002.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20240919-WA0020.jpg" alt="Memory">
+                    </div>
+                    <!-- Add final set of images -->
+                    <div class="memory-card">
+                        <img src="./images/IMG_20241002_180334_338.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/445378640_1101486284275192_6859708059905135474_n.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/78ec51ac-fa07-4b12-bc22-9290e9ffa70e.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-02-21 at 9.15.57 AM (1).jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/WhatsApp Image 2025-02-21 at 9.15.38 AM.jpeg" alt="Memory">
+                    </div>
+                    <!-- Add remaining images -->
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-1968951582.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Snapchat-1698003053.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/received_1087353735743440.jpeg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20250128-WA0004.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241203-WA0021.jpg" alt="Memory">
+                    </div>
+                    <!-- Add final images -->
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241203-WA0006.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20241110-WA0001.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20240924-WA0007.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/1000005230.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/20241125_142749.jpg" alt="Memory">
+                    </div>
+                    <!-- Add last row -->
+                    <div class="memory-card">
+                        <img src="./images/20241107_141614.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/20240525_152600.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/20240328_135240.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/IMG-20240921-WA0006.jpg" alt="Memory">
+                    </div>
+                    <div class="memory-card">
+                        <img src="./images/Screenshot_20240610-124301.png" alt="Memory">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page-navigation">
+                <button class="nav-button" onclick="showSection('letter-section')">✨ Next Surprise! ✨</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: LETTER PAGE -->
+    <section id="letter-section">
+        <div class="memory-lane-container">
+            <div class="letter-container">
+                <div class="paper-clip"></div>
+                <div class="heart-decoration heart-1">❤️</div>
+                <div class="heart-decoration heart-2">❤️</div>
+                
+                <h1 class="letter-title">
+                    <span style="--i:1">O</span>
+                    <span style="--i:2">n</span>
+                    <span style="--i:3">e</span>
+                    <span style="--i:4"> </span>
+                    <span style="--i:5">Y</span>
+                    <span style="--i:6">e</span>
+                    <span style="--i:7">a</span>
+                    <span style="--i:8">r</span>
+                    <span style="--i:9"> </span>
+                    <span style="--i:10">o</span>
+                    <span style="--i:11">f</span>
+                    <span style="--i:12"> </span>
+                    <span style="--i:13">L</span>
+                    <span style="--i:14">o</span>
+                    <span style="--i:15">v</span>
+                    <span style="--i:16">e</span>
+                </h1>
+                
+                <div class="letter-content">
+                    <p class="reveal-text"><strong>To My Beautiful Ana,</strong></p>
+                    
+                    <p class="reveal-text">Happy one-year anniversary, baby ❤️</p>
+                    
+                    <p class="reveal-text">Can you believe it's been 365 days of you putting up with my nonsense? Honestly, you deserve a trophy… or maybe a lifetime supply of cuddles and kisses (redeemable anytime, no expiry date 😌).</p>
+                    
+                    <p class="reveal-text">I still remember the first time I hugged you—how everything felt calm, like the whole world just faded away and it was just us. And our first kiss? Let's be honest… I think I stopped thinking for a second. You just have that effect on me. Then there was our first date—the way you smiled, laughed, and made me feel like the luckiest person alive. From that moment on, every memory we've made became something I treasure.</p>
+                    
+                    <p class="reveal-text">But what means even more to me is how you've always been by my side, especially when things were tough. You stayed. You talked with me when I felt low, reminded me I existed when I felt invisible, and held my hand—figuratively and literally—through everything. You've made my heart feel seen, heard, and loved in ways I never knew I needed.</p>
+                    
+                    <p class="reveal-text">And of course, I can't forget the important stuff—like how I <em>might</em> have mentioned that if you ever tripped and fell, the tiles wouldn't survive... not because you're heavy (you're <em>literally perfect</em>, and you better not argue with me), but because you're just that powerful. One step from you could shift the earth, girl 😌</p>
+                    
+                    <p class="reveal-text">Also—just a friendly reminder that if you're talking to other boys… I <em>am</em> side-eyeing every one of them 😒. Only <em>I</em> get to steal your attention, okay?</p>
+                    
+                    <p class="reveal-text">Thank you for being the brightest part of my life. For loving me, supporting me, and making every single day feel like something out of a fairytale—with a little bit of chaos and a whole lot of heart.</p>
+                    
+                    <p class="reveal-text">One year down, forever to go—with you, always. 💫</p>
+                    
+                    <div class="letter-signature reveal-text">With all my love,<br><strong>Rafwan</strong> 💙</div>
+                </div>
+            </div>
+            
+            <div class="page-navigation">
+                <button class="nav-button" onclick="showSection('love-section')">💝 One Last Thing... 💝</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: LOVE PAGE -->
+    <section id="love-section">
+        <div class="love-container">
+            <div class="floating-hearts" id="hearts-container"></div>
+            
+            <div class="love-message">
+                <h1 class="love-text">I Love You ❤️</h1>
+                <p class="love-subtext">Every moment with you is a treasure,<br>every smile you share lights up my world.<br>You're my everything, forever and always.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="star star-bottom">💜</div>
+    
+    <!-- Music setup -->
+    <audio id="bgMusic" loop autoplay preload="auto">
+        <source src="./music/Warm-Memories-Emotional-Inspiring-Piano(chosic.com).mp3" type="audio/mp3">
+    </audio>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Get music element
+        const bgMusic = document.getElementById('bgMusic');
+        
+        // Set volume
+        bgMusic.volume = 0.5;
+        
+        // Function to show a specific section and hide others
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show the requested section
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Scroll to top of the section
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // If showing love section, start creating hearts
+            if (sectionId === 'love-section') {
+                // Create initial batch of hearts
+                for (let i = 0; i < 10; i++) {
+                    createHeart();
+                }
+            }
+        }
+        
+        // Auto-play music
+        function playMusic() {
+            bgMusic.play().catch(err => {
+                console.log('Music play error:', err);
+                // Try again with user interaction
+                document.addEventListener('click', function() {
+                    bgMusic.play();
+                }, { once: true });
+            });
+        }
+        
+        // Try to play music immediately
+        window.addEventListener('DOMContentLoaded', playMusic);
+        
+        // Create floating hearts for love section
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Create hearts periodically when love section is visible
+        setInterval(() => {
+            if (document.getElementById('love-section').style.display === 'block') {
+                createHeart();
+            }
+        }, 300);
+        
+        // Letter animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate letter title
+            const titleLetters = document.querySelectorAll('.letter-title span');
+            titleLetters.forEach((letter, index) => {
+                gsap.to(letter, {
+                    rotation: "+=5",
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: index * 0.1
+                });
+            });
+            
+            // Create confetti
+            function createConfetti() {
+                const confettiContainer = document.getElementById('confetti-container');
+                const colors = ['#ffeb3b', '#ff9fc2', '#ff6c9e', '#ffd700', '#ffffff'];
+                const count = 50;
+                
+                for (let i = 0; i < count; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'falling-confetti';
+                    
+                    let left = Math.random() * 100;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const duration = 8 + Math.random() * 7;
+                    const delay = Math.random() * 5;
+                    const size = 5 + Math.random() * 10;
+                    
+                    confetti.style.left = `${left}%`;
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.animationDuration = `${duration}s`;
+                    confetti.style.animationDelay = `${delay}s`;
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    
+                    if (Math.random() > 0.7) {
+                        confetti.innerHTML = '★';
+                        confetti.style.fontSize = `${size * 2}px`;
+                        confetti.style.backgroundColor = 'transparent';
+                        confetti.style.color = color;
+                    } else if (Math.random() > 0.5) {
+                        confetti.innerHTML = '❤';
+                        confetti.style.fontSize = `${size * 2}px`;
+                        confetti.style.backgroundColor = 'transparent';
+                        confetti.style.color = color;
+                    } else if (Math.random() > 0.3) {
+                        confetti.innerHTML = '💕';
+                        confetti.style.fontSize = `${size * 2}px`;
+                        confetti.style.backgroundColor = 'transparent';
+                        confetti.style.color = color;
+                    } else if (Math.random() > 0.4) {
+                        confetti.style.borderRadius = '0';
+                    } else {
+                        confetti.style.borderRadius = '50%';
+                    }
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, (duration + delay) * 1000);
+                }
+            }
+            
+            // Create initial confetti
+            createConfetti();
+            
+            // Create continuous confetti
+            setInterval(() => {
+                createConfetti();
+            }, 3000);
+            
+            // Function to animate text appearance when a section becomes visible
+            function animateTexts(sectionId) {
+                const revealTexts = document.querySelectorAll(`#${sectionId} .reveal-text`);
+                
+                revealTexts.forEach((text, index) => {
+                    text.style.opacity = "0";
+                    text.style.transform = "translateY(20px)";
+                    text.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+                    
+                    setTimeout(() => {
+                        text.style.opacity = "1";
+                        text.style.transform = "translateY(0)";
+                    }, 300 + (index * 150));
+                });
+            }
+            
+            // Add event listener to nav buttons to trigger animations
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetSection = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    setTimeout(() => {
+                        animateTexts(targetSection);
+                    }, 300);
+                });
+            });
+            
+            // Set up initial animations for the first visible section
+            animateTexts('gallery-section');
+            
+            // Interactive hover effect for paragraphs
+            document.querySelectorAll('.reveal-text').forEach(text => {
+                text.addEventListener('mouseover', () => {
+                    text.style.transform = "scale(1.02) translateX(10px)";
+                    text.style.color = "#ff4d89";
+                });
+                
+                text.addEventListener('mouseout', () => {
+                    text.style.transform = "scale(1) translateX(0)";
+                    text.style.color = "";
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
